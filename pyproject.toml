@@ -1,0 +1,43 @@
+[project]
+name = "jiosaavnpy"
+version = "0.1.0"
+description = "An unofficial Python wrapper for Jiosaavn."
+authors = [
+  { name="ZingyTomato" }
+]
+
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.7"
+dependencies = [
+  "requests >=2.0.0",
+  "pyDes>=2.0.1"
+]
+
+keywords = ["music", "jiosaavn", "api", "audio", "streaming"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+  "Operating System :: OS Independent",
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "Topic :: Internet",
+  "Topic :: Scientific/Engineering :: Information Analysis",
+  "Topic :: Software Development :: Libraries :: Python Modules"
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.urls]
+Homepage = "https://github.com/ZingyTomato/JiosaavnPy"
+Repository = "https://github.com/ZingyTomato/JiosaavnPy/"
+Issues = "https://github.com/ZingyTomato/JiosaavnPy/issues"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+packages = ["jiosaavnpy"]

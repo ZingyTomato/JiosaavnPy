@@ -1,0 +1,7 @@
+SEARCH_SONGS_URL = "https://www.jiosaavn.com/api.php?__call=search.getResults&p=0&_format=json&_marker=0&api_version=4&ctx=web6dot0&n=20&q="
+SONG_DETAILS_URL = "https://www.jiosaavn.com/api.php?__call=song.getDetails&cc=in&_format=json&_marker=0%3F_marker%3D0&pids="
+SEARCH_ALBUMS_URL = "https://www.jiosaavn.com/api.php?__call=search.getAlbumResults&p=0&_format=json&_marker=0&api_version=4&ctx=web6dot0&n=20&q="
+ALBUM_DETAILS_URL = "https://www.jiosaavn.com/api.php?__call=content.getAlbumDetails&_format=json&cc=in&_marker=0%3F_marker%3D0&albumid="
+SEARCH_PLAYLISTS_URL = "https://www.jiosaavn.com/api.php?__call=search.getPlaylistResults&p=0&_format=json&_marker=0&api_version=4&ctx=web6dot0&n=20&q="
+PLAYLIST_DETAILS_URL = "https://www.jiosaavn.com/api.php?__call=playlist.getDetails&_format=json&cc=in&_marker=0%3F_marker%3D0&listid="
+SEARCH_ARTISTS_URL = "https://www.jiosaavn.com/api.php?__call=search.getArtistResults&p=0&_format=json&_marker=0&api_version=4&ctx=web6dot0&n=20&q="
