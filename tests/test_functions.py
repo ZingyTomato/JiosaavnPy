@@ -10,11 +10,6 @@ def test_decrypt_stream_url():
     assert isinstance(urls, dict)
     assert "low_quality" in urls
 
-def test_format_stream_url():
-    dummy_url = "https://preview.saavncdn.com/song_96_p.mp4"
-    urls = funcs.format_stream_url(dummy_url, True)
-    assert urls["very_high_quality"].endswith("_320.mp4")
-
 def test_is_explicit():
     assert funcs.is_explicit(1) is True
     assert funcs.is_explicit(0) is False

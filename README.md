@@ -1,28 +1,27 @@
-# jiosaavnpy: An unofficial API for Jiosaavn
+# 🎶 jiosaavnpy: An unofficial API for Jiosaavn
 
 ## Introduction
 
 jiosaavnpy is a Python 3 library to send requests to the Jiosaavn API.
 It emulates Jiosaavn web client requests without the need for any authentication.
 
-## Table of Contents
+## 📖 Table of Contents
 
-* [`Features`](#features)
-* [`Installation`](#installation)
-* [`Usage`](#usage)
+* [`Features`](#-features)
+* [`Installation`](#-installation)
+* [`Usage`](#-usage)
 
 * [`API`](#api)
 
-  * [`API Methods`](#api-methods)
+  * [`API Methods`](#-api-methods)
 
-* [`Caveats`](#caveats)
-* [`Contributing`](#contributing)
+* [`Caveats`](#-caveats)
+* [`Contributing`](#-contributing)
 
 
-## Features
---------
+## 🎧 Features
 
-### Searching:
+### 🔍 Searching:
 
 * Search for Songs (can specify result limits)
 * Search for Albums (can specify result limits)
@@ -41,13 +40,13 @@ It emulates Jiosaavn web client requests without the need for any authentication
 
 - Python 3.7 or higher - https://www.python.org
 
-## Installation
+## 🔨 Installation
 
 ```sh
 pip install jiosaavnpy
 ```
 
-## Usage
+## 👨🏻‍💻 Usage
 
 - To search for Songs:
 
@@ -145,7 +144,7 @@ Check out [`examples`](https://github.com/ZingyTomato/JiosaavnPy/tree/main/examp
 
 # API
 
-## API methods
+## 📙 API methods
 
 ### `search_songs`
 
@@ -201,12 +200,12 @@ Check out [`examples`](https://github.com/ZingyTomato/JiosaavnPy/tree/main/examp
 - `playlist_id` *(str)*: Can be found using search_playlists() as `playlist_id`.  
   Example: `"848372056"`
 
-## Caveats
+## ❔ Caveats
 
 * This is not an official or supported API.
 * Non-English tracks are not returned by Jiosaavn if made from a non-Indian IP address.
 * Any sort of rate limits are not publicly known (?).
 
-## Contributing
+## 🏥 Contributing
 
 Pull requests are welcome. There are still some endpoints that have not yet implemented.

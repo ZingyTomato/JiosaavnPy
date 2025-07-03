@@ -28,17 +28,6 @@ class Functions:
                 'very_high_quality': ''
             }
 
-    def format_stream_url(self, stream_url: str, kbps320: bool) -> Dict[str, str]:
-        stream_url = stream_url.replace("preview", "aac")
-        base = stream_url.replace("_96_p", "_")
-
-        return {
-            'low_quality': base + "48",
-            'medium_quality': base + "48",
-            'high_quality': base + "160",
-            'very_high_quality': base + "320" if kbps320 else ""
-        }
-
     def is_explicit(self, value: int) -> bool:
         return value == 1
 
