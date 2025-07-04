@@ -4,6 +4,18 @@
 
 A Python 3 library for accessing JioSaavn's music catalog through their unofficial API. This library emulates JioSaavn web client requests without requiring authentication.
 
+## 📖 Table Of Contents
+
+* [`✨ Features`](#-features)
+* [`📋 Requirements`](#-requirements)
+* [`🔨 Installation`](#-installation)
+* [`🚀 Quick Start`](#-quick-start)
+* [`📖 Usage Examples`](#-usage-examples)
+* [`📚 API Reference`](#-api-reference)
+* [`📋 Response Format`](#-response-format)
+* [`⚠️ Important Notes`](#️-important-notes)
+* [`🤝 Contributing`](#-contributing)
+
 ## ✨ Features
 
 ### 🔍 Search Capabilities
@@ -53,7 +65,7 @@ print(results[0]['title'])  # "Never Gonna Give You Up"
 # Get detailed song information
 track_id = results[0]['track_id']
 song_details = jio.song_info(track_id)
-print(song_details['stream_urls']['high_quality'])
+print(song_details['stream_urls']['very_high_quality'])
 
 ```
 
@@ -73,7 +85,6 @@ def search_songs_example():
     
     for i, song in enumerate(results, 1):
         print(f"{i}. {song['title']} - {song['primary_artists']}")
-     including streaming URLs
     return results
 
 # Run the example
