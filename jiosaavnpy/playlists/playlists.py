@@ -22,8 +22,17 @@ class PlaylistDict(TypedDict, total=False):
 
 class Playlists:
     def search_playlists(self, search_query: str, limit: Optional[int] = None) -> List[PlaylistDict]:
-        """Searches jiosaavn for playlists.
-        Returns a JSON list of all the playlists."""
+        """
+            Search for playlists on JioSaavn.
+
+            Args:
+                search_query: Playlist name or keywords.
+                limit: Max number of results to return (default: 5).
+
+            Returns:
+                A list of PlaylistDict objects matching the query.
+        """
+        
         if limit is None:
             limit = 5  ## Default to 5 results.
         SEARCH_URL = self.endpoints.SEARCH_PLAYLISTS_URL.replace("&n=20", f"&n={limit}")
@@ -31,7 +40,17 @@ class Playlists:
         return [self.format_json_search_playlists(p) for p in response.get("results", [])]
 
     def playlist_info(self, playlist_id: str) -> PlaylistDict:
-        """Retrieves playlist info from Jiosaavn."""
+        """
+            Get detailed info for a specific playlist.
+
+            Args:
+                playlist_id: The JioSaavn playlist ID.
+                Example: `386221272`
+
+            Returns:
+                A PlaylistDict containing playlist metadata and track list.
+        """
+    
         response = self.requests.get(self.endpoints.PLAYLIST_DETAILS_URL + playlist_id).json()
         return self.format_json_info_playlists(response)
 

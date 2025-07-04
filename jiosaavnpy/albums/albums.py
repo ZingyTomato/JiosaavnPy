@@ -1,10 +1,8 @@
 from typing import Optional, List, Dict, TypedDict
 import html
 
-
 class ThumbnailDict(TypedDict):
     quality: Dict[str, str]
-
 
 class AlbumSearchDict(TypedDict):
     album_id: str
@@ -18,7 +16,18 @@ class AlbumSearchDict(TypedDict):
     release_year: str
     album_language: str
     is_explicit: bool
-
+    
+class AlbumArtistDict(TypedDict):
+    album_id: str
+    title: str
+    primary_artists: str
+    primary_artists_id: str
+    track_count: str
+    album_url: str
+    thumbnails: ThumbnailDict
+    release_year: str
+    album_language: str
+    is_explicit: bool
 
 class AlbumDetailDict(TypedDict):
     album_id: str
@@ -30,11 +39,19 @@ class AlbumDetailDict(TypedDict):
     release_date: str
     tracks: List[dict]  # Stays generic unless track type is structured too
 
-
 class Albums:
     def search_albums(self, search_query: str, limit: Optional[int] = None) -> List[AlbumSearchDict]:
-        """Searches jiosaavn for albums.
-        Returns a JSON list of all the albums."""
+        """
+            Search for albums on JioSaavn.
+
+        Args:
+                search_query: The album name or keywords.
+                limit: Max number of results to return (default: 5).
+
+            Returns:
+                A list of AlbumSearchDict objects matching the query.
+            """
+    
         if limit is None:
             limit = 5  ## Default to 5 results.
         SEARCH_URL = self.endpoints.SEARCH_ALBUMS_URL.replace("&n=20", f"&n={limit}")
@@ -42,7 +59,17 @@ class Albums:
         return [self.format_json_search_albums(i) for i in response.get('results', [])]
 
     def album_info(self, album_id: str) -> AlbumDetailDict:
-        """Retrieves album info from Jiosaavn."""
+        """
+            Get detailed info for a specific album.
+
+            Args:
+                album_id: The JioSaavn album ID.
+                Example: `10061198`
+
+            Returns:
+                An AlbumDetailDict with full album metadata and tracks.
+            """
+            
         response = self.requests.get(self.endpoints.ALBUM_DETAILS_URL + album_id).json()
         return self.format_json_info_albums(response)
 
@@ -87,4 +114,25 @@ class Albums:
             },
             'release_date': album_json['release_date'],
             'tracks': tracks
+        }
+        
+    def format_json_artists_albums(self, artist_json: dict) -> AlbumArtistDict:
+        image = artist_json['imageUrl']
+        return {
+            'album_id': artist_json['albumid'],
+            'title': html.unescape(artist_json['album']),
+            'primary_artists': artist_json['primaryArtists'],
+            'primary_artists_ids': artist_json['primaryArtistsIds'],
+            'track_count': artist_json['numSongs'],
+            'album_url': artist_json['url'],
+            'thumbnails': {
+                'quality': {
+                    '50x50': image.replace("150x150", "50x50"),
+                    '150x150': image,
+                    '500x500': image.replace("150x150", "500x500")
+                }
+            },
+            'release_year': artist_json['year'],
+            'album_language': artist_json['language'],
+            'is_explicit': self.is_explicit(artist_json['explicitContent'])
         }

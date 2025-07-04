@@ -6,7 +6,7 @@ from jiosaavnpy import jiosaavn
 
 def main():
     jio = JioSaavn() ## Initiate the main class.
-    album_id = input("Enter the album id: ") ## See `search_albums.py`
+    album_id = input("Enter the album_id: ") ## See `search_albums.py`
     album_info = jio.album_info(album_id)
     return print(album_info)
 

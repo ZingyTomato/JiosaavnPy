@@ -36,3 +36,16 @@ def test_format_json_search_artists(client):
     artist = client.format_json_search_artists(mock_artist)
     assert artist["artist_id"] == "512102"
     assert artist["name"] == "Rick Astley"
+    
+def test_format_json_info_artists(client):
+    mock_artist = {
+        "artistId": "512102",
+        "name": "Rick Astley",
+        "perma_url": "https://example.com/artist",
+        "image": "image_50x50.jpg",
+        "topSongs": {'songs': ""},
+        "topAlbums": {'albums': ""}
+    }
+    artist = client.format_json_info_artists(mock_artist)
+    assert artist["artist_id"] == "512102"
+    assert artist["name"] == "Rick Astley"

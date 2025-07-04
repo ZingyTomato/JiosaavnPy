@@ -2,7 +2,6 @@ from typing import List, Dict, Optional, Callable
 from pyDes import des, ECB, PAD_PKCS5
 import base64
 
-
 class Functions:
     """Contains commonly used utility functions for processing JioSaavn metadata."""
 

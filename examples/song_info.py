@@ -6,7 +6,7 @@ from jiosaavnpy import jiosaavn
 
 def main():
     jio = JioSaavn() ## Intialize the main class.
-    track_id = input("Enter the track id: ") ## See `search_songs.py`
+    track_id = input("Enter the track_id: ") ## See `search_songs.py`
     song_info = jio.song_info(track_id) 
     return print(song_info)
 

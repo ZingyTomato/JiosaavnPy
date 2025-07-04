@@ -1,211 +1,285 @@
-# 🎶 jiosaavnpy: An unofficial API for Jiosaavn
+# 🎶 jiosaavnpy: Unofficial JioSaavn API Client
 
-## Introduction
+[![Python Version](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/) [![License](https://img.shields.io/badge/license-GPLV3-green.svg)](https://github.com/ZingyTomato/JiosaavnPy?tab=GPL-3.0-1-ov-file#readme) [![PyPI Version](https://img.shields.io/pypi/v/jiosaavnpy.svg)](https://pypi.org/project/jiosaavnpy/)
 
-jiosaavnpy is a Python 3 library to send requests to the Jiosaavn API.
-It emulates Jiosaavn web client requests without the need for any authentication.
+A Python 3 library for accessing JioSaavn's music catalog through their unofficial API. This library emulates JioSaavn web client requests without requiring authentication.
 
-## 📖 Table of Contents
+## ✨ Features
 
-* [`Features`](#-features)
-* [`Installation`](#-installation)
-* [`Usage`](#-usage)
+### 🔍 Search Capabilities
 
-* [`API`](#api)
+-   **Songs**: Search for songs with customizable result limits.
+-   **Albums**: Search for albums with customizable result limits.
+-   **Artists**: Search for artists with customizable result limits.
+-   **Playlists**: Search for playlists with customizable result limits.
 
-  * [`API Methods`](#-api-methods)
+### 📊 Entity Information
 
-* [`Caveats`](#-caveats)
-* [`Contributing`](#-contributing)
+-   **Song Details**: Get comprehensive track information.
+-   **Album Information**: Retrieve album metadata and track listings.
+-   **Artist Profiles**: Access artist details, top songs, and albums.
+-   **Playlist Contents**: Fetch playlist metadata and track lists.
 
+### 🎵 Audio Streaming
 
-## 🎧 Features
+-   Multiple quality options (48kbps to 320kbps).
+-   Direct streaming URLs for all tracks.
+-   Thumbnail images in various resolutions (50x50, 150x150, 500x500).
 
-### 🔍 Searching:
+## 📋 Requirements
 
-* Search for Songs (can specify result limits)
-* Search for Albums (can specify result limits)
-* Search for Artists (can specify result limits)
-* Search for Albums (can specify result limits)
-* Search for Playlists (can specify result limits)
-
-### Entity Information:
-
-* Retrieve information about a specific Song (requires a `track_id`)
-* Retrieve information about a specific Album (requires an `album_id`)
-* Retrieve information about a specific Playlist (requires a `playlist_id`)
-* Retrieve information about a specific Artist (requires a `artist_id`)
-
-## Requirements
-
-- Python 3.7 or higher - https://www.python.org
+-   Python 3.7 or higher.
+-   Internet connection for API requests.
 
 ## 🔨 Installation
 
-```sh
+```bash
 pip install jiosaavnpy
+
 ```
 
-## 👨🏻‍💻 Usage
-
-- To search for Songs:
+## 🚀 Quick Start
 
 ```python
-"""Example to search for songs."""
+from jiosaavnpy import JioSaavn
 
-from jiosaavnpy import jiosaavn
+# Initialize the client
+jio = JioSaavn()
 
-def main():
-    jio = JioSaavn() ## Intialize the main class.
-    song_name = input("Search for a Song: ")
-    song_results = jio.search_songs(song_name, limit=5) ## Limit can be set to any int, defaults to 5 if not provided.
-    track_id = song_results[0]['track_id'] ## Useful for track info in example below.
-    return print(song_results)
+# Search for songs
+results = jio.search_songs("Never gonna give you up", limit=5)
+print(results[0]['title'])  # "Never Gonna Give You Up"
 
-if __name__ == "__main__":
-    main()
+# Get detailed song information
+track_id = results[0]['track_id']
+song_details = jio.song_info(track_id)
+print(song_details['stream_urls']['high_quality'])
+
 ```
 
-**Parameters:**
+## 📖 Usage Examples
 
-- `search_query` *(str)*: Name of the track.  
-  Example: `"Never gonna give you up"`
-- `limit` *(int, optional)*: Number of tracks to return.  
-  Example: `1`, `5`, `10` (default is 5)
-
-**Example response** (with `limit=1`):
-
-```json
-[
-  {
-    "track_id": "e0kCEwoC",
-    "title": "Never Gonna Give You Up",
-    "primary_artists": "Rick Astley",
-    "primary_artists_ids": "512102",
-    "primary_artists_urls": "https://www.jiosaavn.com/artist/rick-astley-/tgLD-55V-uc_",
-    "featured_artists": "",
-    "featured_artists_ids": "",
-    "featured_artists_urls": "",
-    "track_url": "https://www.jiosaavn.com/song/never-gonna-give-you-up/FVgAcjFHWHA",
-    "track_subtitle": "Rick Astley - Whenever You Need Somebody",
-    "album_name": "Whenever You Need Somebody",
-    "album_id": "26553699",
-    "album_url": "https://www.jiosaavn.com/album/whenever-you-need-somebody/Tr67aKPn6fU_",
-    "thumbnails": {
-      "quality": {
-        "50x50": "https://c.saavncdn.com/694/Whenever-You-Need-Somebody-English-1987-20210329114358-50x50.jpg",
-        "150x150": "https://c.saavncdn.com/694/Whenever-You-Need-Somebody-English-1987-20210329114358-150x150.jpg",
-        "500x500": "https://c.saavncdn.com/694/Whenever-You-Need-Somebody-English-1987-20210329114358-500x500.jpg"
-      }
-    },
-    "release_year": "1987",
-    "track_language": "english",
-    "label": "BMG Rights Management (UK) Ltd",
-    "play_count": "199567",
-    "is_explicit": false,
-    "duration": "213",
-    "copyright_text": "℗ 1987 Sony Music Entertainment UK Limited",
-    "stream_urls": {
-        "low_quality": "https://aac.saavncdn.com/768/6d5c0e88195f6048dc7e78a06eafde0d_48.mp4",
-        "medium_quality": "https://aac.saavncdn.com/768/6d5c0e88195f6048dc7e78a06eafde0d_96.mp4",
-        "high_quality": "https://aac.saavncdn.com/768/6d5c0e88195f6048dc7e78a06eafde0d_160.mp4",
-        "very_high_quality": "https://aac.saavncdn.com/768/6d5c0e88195f6048dc7e78a06eafde0d_320.mp4"
-        }
-  }
-]
-```
-
-- To get information on a specific Song:
+### Searching for Songs
 
 ```python
-"""Example to retrieve song info using the track_id.
-A song's track_id can be found using the example above and collecting the track_id from the JSON result."""
+from jiosaavnpy import JioSaavn
 
-from jiosaavnpy import jiosaavn
+def search_songs_example():
+    """Search for songs and display results."""
+    jio = JioSaavn()
+    
+    query = input("Enter song name: ")
+    results = jio.search_songs(query, limit=10)
+    
+    for i, song in enumerate(results, 1):
+        print(f"{i}. {song['title']} - {song['primary_artists']}")
+     including streaming URLs
+    return results
 
-def main():
-    jio = JioSaavn() ## Intialize the main class.
-    track_id = input("Enter the track id: ") ## The track_id from the previous example
-    song_info = jio.song_info(track_id) 
-    return print(song_info)
+# Run the example
+songs = search_songs_example()
 
-if __name__ == "__main__":
-    main()
 ```
 
-**Parameters:**
+### Getting Song Information
 
-- `track_id` *(str)*: Can be found using search_songs() as `track_id`.  
-  Example: `"e0kCEwoC"`
+```python
+from jiosaavnpy import JioSaavn
 
-The JSON response is the same as `search_songs`.
+def get_song_details():
+    """Retrieve detailed information about a specific song."""
+    jio = JioSaavn()
+    
+    # Use track_id from search results
+    track_id = "e0kCEwoC"  # Never Gonna Give You Up
+    song_info = jio.song_info(track_id)
+    
+    print(f"Title: {song_info['title']}")
+    print(f"Artist: {song_info['primary_artists']}")
+    print(f"Album: {song_info['album_name']}")
+    print(f"Duration: {song_info['duration']} seconds")
+    print(f"Year: {song_info['release_year']}")
+    
+    return song_info
+
+# Run the example
+details = get_song_details()
+
+```
+
+### Working with Albums
+
+```python
+from jiosaavnpy import JioSaavn
+
+def explore_album():
+    """Search for albums and get detailed information."""
+    jio = JioSaavn()
+    
+    # Search for albums
+    albums = jio.search_albums("Whenever You Need Somebody", limit=3)
+    
+    if albums:
+        album_id = albums[0]['album_id']
+        album_details = jio.album_info(album_id)
+        
+        print(f"Album: {album_details['album_name']}")
+        print(f"Artist: {album_details['primary_artists']}")
+        print(f"Tracks: {len(album_details['tracks'])}")
+        
+        # List all tracks
+        for track in album_details['tracks']:
+            print(f"  - {track['title']}")
+
+# Run the example
+explore_album()
+
+```
 
 Check out [`examples`](https://github.com/ZingyTomato/JiosaavnPy/tree/main/examples) for more usage examples.
 
-# API
+## 📚 API Reference
 
-## 📙 API methods
+### Search Methods
 
-### `search_songs`
+#### `search_songs(search_query, limit=5)`
 
-**Parameters:**
-
-- `search_query` *(str)*: Name of the track.  
-  Example: `"Never gonna give you up"`
-- `limit` *(int, optional)*: Number of tracks to return.  
-  Example: `1`, `5`, `10` (default is 5)
-
-### `song_info`
+Search for songs by name, artist, or lyrics.
 
 **Parameters:**
 
-- `track_id` *(str)*: Can be found using search_songs() as `track_id`.  
-  Example: `"e0kCEwoC"`
+-   `search_query` (str): Search term for songs.
+-   `limit` (int, optional): Number of results to return (default: 5).
 
-### `search_albums`
+**Returns:** List of song dictionaries with metadata.
 
-**Parameters:**
+#### `search_albums(search_query, limit=5)`
 
-- `search_query` *(str)*: Name of the album.
-- `limit` *(int, optional)*: Number of albums to return. 
-  Example: `1`, `5`, `10` (default is 5)
-
-### `album_info`
+Search for albums by name or artist.
 
 **Parameters:**
 
-- `album_id` *(str)*: Can be found using search_albums() as `album_id`.  
-  Example: `"28439174"`
+-   `search_query` (str): Search term for albums.
+-   `limit` (int, optional): Number of results to return (default: 5).
 
-### `search_artists`
+**Returns:** List of album dictionaries.
 
-**Parameters:**
+#### `search_artists(search_query, limit=5)`
 
-- `search_query` *(str)*: Name of the artist.
-- `limit` *(int, optional)*: Number of artists to return. 
-  Example: `1`, `5`, `10` (default is 5)
-
-### `search_playlists`
+Search for artists by name.
 
 **Parameters:**
 
-- `search_query` *(str)*: Name of the playlist.
-- `limit` *(int, optional)*: Number of playlists to return. 
-  Example: `1`, `5`, `10` (default is 5)
+-   `search_query` (str): Artist name to search for.
+-   `limit` (int, optional): Number of results to return (default: 5).
 
-### `playlist_info`
+**Returns:** List of artist dictionaries.
+
+#### `search_playlists(search_query, limit=5)`
+
+Search for playlists by name or description.
 
 **Parameters:**
 
-- `playlist_id` *(str)*: Can be found using search_playlists() as `playlist_id`.  
-  Example: `"848372056"`
+-   `search_query` (str): Playlist name to search for.
+-   `limit` (int, optional): Number of results to return (default: 5).
 
-## ❔ Caveats
+**Returns:** List of playlist dictionaries.
 
-* This is not an official or supported API.
-* Non-English tracks are not returned by Jiosaavn if made from a non-Indian IP address.
-* Any sort of rate limits are not publicly known (?).
+### Information Methods
 
-## 🏥 Contributing
+#### `song_info(track_id)`
 
-Pull requests are welcome. There are still some endpoints that have not yet implemented.
+Get detailed information about a specific song.
+
+**Parameters:**
+
+-   `track_id` (str): Unique identifier for the track
+
+**Returns:** Dictionary with comprehensive song information
+
+#### `album_info(album_id)`
+
+Get detailed information about a specific album.
+
+**Parameters:**
+
+-   `album_id` (str): Unique identifier for the album
+
+**Returns:** Dictionary with album information and track list
+
+#### `artist_info(artist_token, song_limit=5, album_limit=5)`
+
+Get detailed information about a specific artist.
+
+**Parameters:**
+
+-   `artist_token` (str): Unique identifier for the artist
+-   `song_limit` (int, optional): Number of top songs to include (default: 5)
+-   `album_limit` (int, optional): Number of top albums to include (default: 5)
+
+**Returns:** Dictionary with artist information, top songs, and albums
+
+#### `playlist_info(playlist_id)`
+
+Get detailed information about a specific playlist.
+
+**Parameters:**
+
+-   `playlist_id` (str): Unique identifier for the playlist
+
+**Returns:** Dictionary with playlist information and track list
+
+### Other Methods
+
+#### `similar_songs(track_id)`
+
+Get related songs based on its `track_id`. 
+
+**Parameters:**
+
+-   `track_id` (str): Unique identifier for the track.
+
+## 📋 Response Format
+
+### Song Object
+
+```json
+{
+  "track_id": "e0kCEwoC",
+  "title": "Never Gonna Give You Up",
+  "primary_artists": "Rick Astley",
+  "primary_artists_ids": "512102",
+  "album_name": "Whenever You Need Somebody",
+  "album_id": "26553699",
+  "duration": "213",
+  "release_year": "1987",
+  "track_language": "english",
+  "play_count": "199567",
+  "is_explicit": false,
+  "thumbnails": {
+    "quality": {
+      "50x50": "https://c.saavncdn.com/...",
+      "150x150": "https://c.saavncdn.com/...",
+      "500x500": "https://c.saavncdn.com/..."
+    }
+  },
+  "stream_urls": {
+    "low_quality": "https://aac.saavncdn.com/...48.mp4",
+    "medium_quality": "https://aac.saavncdn.com/...96.mp4",
+    "high_quality": "https://aac.saavncdn.com/...160.mp4",
+    "very_high_quality": "https://aac.saavncdn.com/...320.mp4"
+  }
+}
+
+```
+
+## ⚠️ Important Notes
+
+-   **Unofficial API**: This library uses JioSaavn's internal API endpoints and is not officially supported.
+-   **Geographic Restrictions**: Non-English tracks may not be available when accessed from non-Indian IP addresses.
+-   **Rate Limits**: There are no known rate limits as of now (?).
+
+## 🤝 Contributing
+
+Contributions are welcome! There may be certain endpoints which have not been fully covered yet.

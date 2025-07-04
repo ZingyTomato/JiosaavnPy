@@ -75,3 +75,23 @@ def test_format_json_info_albums(client):
     album = client.format_json_info_albums(mock_album_data)
     assert album["album_id"] == "123456"
     assert "tracks" in album and len(album["tracks"]) == 1
+    
+def test_format_json_artist_albums(client):
+    mock_album_data = {
+        "numSongs": "5",
+        "albumid": "123456",
+        "album": "Test Album",
+        "primaryArtists": "Test Artist",
+        "primaryArtistsIds": "321",
+        "url": "https://example.com/test-album",
+        "imageUrl": "mock_150x150.jpg",
+        "release_date": "2022-01-01",
+        "year": "2022",
+        "language": "english",
+        "explicitContent": "0"
+    }
+    
+    album = client.format_json_artists_albums(mock_album_data)
+    assert album["album_id"] == "123456"
+    assert "thumbnails" in album
+    assert album['is_explicit'] == False
