@@ -1,6 +1,6 @@
 [project]
 name = "jiosaavnpy"
-version = "0.1.1"
+version = "0.1.2"
 description = "An unofficial Python wrapper for Jiosaavn."
 authors = [
   { name="ZingyTomato" }
